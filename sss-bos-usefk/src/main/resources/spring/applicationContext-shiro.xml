@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- 配置一个工厂bean，用于创建shiro框架用到过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 注入安全管理器 -->
+		<property name="securityManager" ref="securityManager"></property>
+		<!-- 注入当前系统的登录页面 -->
+		<property name="loginUrl" value="/login.jsp"/>
+		<!-- 注入成功页面 -->
+		<property name="successUrl" value="/index.jsp"/>
+		<!-- 注入权限不足提示页面 -->
+		<property name="unauthorizedUrl" value="/unauthorizedUrl.jsp"/>
+		<!-- 注入URL拦截规则 -->
+		<property name="filterChainDefinitions"	>
+			<value>
+				/css/** = anon
+				/images/** = anon
+				/js/** = anon
+				/login* = anon
+				/validatecode.jsp* = anon
+				/page/base_staff = perms["staff"]
+				/page/base_region = perms["region"]
+				/page/base_subarea = perms["subarea"]
+				/page/base_decidedzone = perms["decidedzone"]
+				/page/base_standard = perms["standard"]
+				
+				/page/qupai_noticebilladd = perms["noticebill"]
+				/* = authc
+			</value>
+		</property>
+	</bean>
+	
+	<!-- 注册自定义realm -->
+	<bean id="selfRealm" class="com.xxx.bos.shiro.SelfRealm"></bean>
+	
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- 注入上面的realm -->
+		<property name="realm" ref="selfRealm"/>
+		<!-- 注入缓存管理器 -->
+		<property name="cacheManager" ref="cacheManager"/>
+	</bean>
+	
+	<!-- 注册缓存管理器 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<!-- 注入ehcache配置文件 -->
+		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
+	</bean>
+	
+	<!-- 开启shiro注解 -->
+	<!-- 自动代理 -->
+	<bean id="defaultAdvisorAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+		<!-- 强制使用cglib为Action创建代理对象 -->
+		<property name="proxyTargetClass" value="true"></property>
+	</bean>
+	
+	<!-- 切面类 -->
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"/>
+	
+</beans>

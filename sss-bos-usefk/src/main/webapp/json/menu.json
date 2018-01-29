@@ -1,0 +1,18 @@
+[
+		{ "id":"11", "pId":"0", "name":"基础数据"},
+		{ "id":"112", "pId":"11", "name":"取派员设置",  "page":"page/base_staff"},
+		{ "id":"113", "pId":"11", "name":"区域设置","page":"page/base_region"},
+		{ "id":"114", "pId":"11", "name":"管理分区", "page":"page/base_subarea"},
+		{ "id":"115", "pId":"11", "name":"管理定区/调度排班","page":"page/base_decidedzone"},
+		{ "id":"12", "pId":"0", "name":"受理"},
+		{ "id":"121", "pId":"12", "name":"业务受理" ,"page":"page/qupai_noticebilladd"},
+		{ "id":"122", "pId":"12", "name":"工作单快速录入" ,"page":"page/qupai_quickworkorder"},
+		{ "id":"124", "pId":"12", "name":"工作单导入" ,"page":"page/qupai_workorderimport"},
+		{ "id":"13", "pId":"0", "name":"调度"},
+		{ "id":"131", "pId":"13", "name":"查台转单","page":""},
+		{ "id":"132", "pId":"13", "name":"人工调度","page":"page/qupai_diaodu"},
+		{ "id":"14", "pId":"0", "name":"物流配送流程管理"},
+		{ "id":"141", "pId":"14", "name":"启动配送流程","page":"workOrderManage/list"},
+		{ "id":"142", "pId":"14", "name":"查看个人任务","page":"task/findPersonalTask"},
+		{ "id":"143", "pId":"14", "name":"查看我的组任务","page":"task/findGroupTask"}
+]
